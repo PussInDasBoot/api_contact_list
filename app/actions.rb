@@ -18,8 +18,8 @@ post '/add_contact' do
   end
 end
 
-get '/delete_contact' do
-  @delete_contact = Contact.find params[:id]
+post '/delete_contact' do
+  @delete_contact = Contact.find params[:contact]
   @delete_contact.destroy
   if request.xhr?
     content_type :json

@@ -10,9 +10,7 @@ $(function () {
       url: form.attr('action'),
       data: form.serialize(),
       success: function (data) {
-        // find the nut list
         var contactList = $('.table').find($('tbody'));
-        // add a new list item to it
         $('<tr>')
           .append($('<td>')
             .text(data.name)
@@ -25,12 +23,61 @@ $(function () {
             .append($('<button>').addClass('edit').text('Edit'))
           )
           .append($('<td>')
-            .append($('<button>').attr("name", "<%=id%>").addClass('delete').text('Delete'))
+            .append($('<button>').attr("name", "<%=id%>").  addClass('delete').text('Delete'))
           ).appendTo(contactList);
       }
     });
 
   });
+
+  $('#delete_contact').on('submit', function (event) {
+    event.preventDefault();
+
+    var form = $(this);
+
+    $.ajax({
+      method: form.attr('method'),
+      url: form.attr('action'),
+      data: form.serialize(),
+      success: function (data) {
+        var contact = form.closest('.contact-row');
+        contact.remove();
+      }
+    });
+
+  });
+
+  $('.edit').on('click', function (event) {
+    event.preventDefault();
+
+    var form = $(this);
+
+    $.ajax({
+      method: form.attr('method'),
+      url: form.attr('action'),
+      data: form.serialize(),
+      success: function (data) {
+        var contact = form.closest('.contact-row');
+        var name = contact.find('.name');
+        var nameText = name.text();
+        name.replaceWith('<input type="text" name="name" class="name" value="'+nameText+'">');
+        var email = contact.find('.email');
+        var emailText = email.text();
+        email.replaceWith('<input type="text" name="name" class="email" value="'+emailText+'">');
+        var editButton = $('.edit').addClass('save').text('Save')
+
+      }
+    });
+
+  });
+
+  // $('.edit.save').on('click', function(){
+  //   var contact = form.closest('.contact-row');
+  //   debugger;
+  //   var name = contact.find('.name');
+  //   var nameText = name.text();
+  //   name.replaceWith('<td>'+nameText+'</td>');
+  //       })
 
 
 

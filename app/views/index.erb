@@ -37,17 +37,18 @@
       <th class="text-center">Delete</th>
     </tr>
     <% @contacts.each do |contact| %>
-    <% id = contact.id %>
-      <tr>
-        <td><%= contact.name %></td>
-        <td><a href="mailto:<%=contact.email%>"><%=contact.email%></a></td>
+    <tr class="contact-row">
+      <td class="name"><%= contact.name %></td>
+      <td class="email"><a href="mailto:<%=contact.email%>"><%=contact.email%></a></td>
+      <form method="post" action="/delete_contact?contact=<%=contact.id%>" id="delete_contact">
         <td>
           <button class="edit">Edit</button>
         </td>
         <td>
-          <button class="delete" name="<%=id%>">Delete</button>
+          <input type="submit" class="btn btn-primary" value="Delete">
         </td>
-      </tr>
+      </form>
+    </tr>
     <% end %>
   </table>
 </div>
