@@ -23,14 +23,16 @@ $(function () {
             .append($('<button>').addClass('edit').text('Edit'))
           )
           .append($('<td>')
-            .append($('<button>').attr("name", "<%=id%>").  addClass('delete').text('Delete'))
+            .append($('<input>').attr("type", "submit").attr("value", "Delete").addClass('btn btn-primary'))
           ).appendTo(contactList);
       }
     });
 
+
+
   });
 
-  $('#delete_contact').on('submit', function (event) {
+  $('.delete_contact').on('submit', function(event) {
     event.preventDefault();
 
     var form = $(this);
