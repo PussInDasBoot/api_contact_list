@@ -29,19 +29,23 @@
 
   <h1>All contacts</h1>
 
+  <p>Click on a name or email field to edit it</p>
+
   <table class="table text-center" id="contact-list">
     <tr>
       <th class="text-center">Name</th>
       <th class="text-center">Email</th>
-      <th class="text-center">Edit</th>
+      <th class="text-center">Send email</th>
+      <th class="text-center"></th>
       <th class="text-center">Delete</th>
     </tr>
     <script id="contact-template" type="text/x-handlebars-template">
       <tr class="contact-row" data-id="{{contact.id}}">
         <td class="name" contenteditable="true">{{contact.name}}</td>
-        <td class="email" contenteditable="true"><a href="mailto:{{contact.email}}">{{contact.email}}</a></td>
+        <td class="email" contenteditable="true">{{contact.email}}</td>
+        <td><a href="mailto:{{contact.email}}"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></a></td>
         <td>
-          <button class="edit btn btn-primary">Edit</button>
+          <button class="save btn btn-primary">Save</button>
         </td>
         <td>
           <form method="post" action="/api/delete_contact?contact={{contact.id}}" class="delete_contact">

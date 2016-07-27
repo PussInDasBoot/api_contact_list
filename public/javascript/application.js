@@ -67,44 +67,31 @@ $(function () {
 
   });
 
-  $(document).on('click', '.edit', function (event) {
-    event.preventDefault();
-    var contact = $(this).closest('.contact-row');
-    var name = contact.find('.name');
-
-    var nameText = name.text();
-    name.replaceWith('<td><input type="text" name="name" class="name" value="'+nameText+'"></td>');
-    var email = contact.find('.email');
-    var emailText = email.text();
-    email.replaceWith('<td><input type="text" name="name" class="email" data-email="'+emailText+'" value="'+emailText+'"></td>');
-    // TODO perhaps chain this HTML better
-    var editButton = contact.find('.edit').addClass('save').removeClass('edit').text('Save')
-
+  $(document).on('click', '.name, .email', function (event) {
+    $(this).closest('.contact-row').find('.save').css('visibility', 'visible');
   });
 
   $(document).on('click', '.save', function(event){
     event.preventDefault();
     var contact = $(this).closest('.contact-row');
+    contactId = contact.data("id");
     var name = contact.find('.name');
-    var nameText = name.val();
+    var nameText = name.text();
     var email = contact.find('.email');
-    var emailText = email.val();
-    var oldEmail = email.data("email");
-    name.replaceWith('<td>'+nameText+'</td>');
+    var emailText = email.text();
     $.ajax({
       method: "POST",
       url: '/api/edit_contact',
-      data: {name: nameText, email: emailText, oldemail: oldEmail},
+      data: {name: nameText, email: emailText, contactid: contactId},
       success: function (data) {
-        name.replaceWith('<td>'+nameText+'</td>');
-        email.replaceWith('<td>'+emailText+'</td>')
+        var contactHTML = Templates.contact({contact: data});
+        contact.replaceWith(contactHTML);
+        contact.find('.save').css('visibility', 'hidden');
 
         //TODO replace these replaceWiths with the same functionality as the add-contact new items, chaining html
       }
     });
   });
-
-    
 
 
 

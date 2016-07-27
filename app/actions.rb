@@ -36,14 +36,13 @@ post '/api/delete_contact' do
 end
 
 post '/api/edit_contact' do
-  puts params
-  @contact = Contact.find_by(email: params[:oldemail])
+  @contact = Contact.find params[:contactid]
   @contact.update(
     name: params[:name],
     email: params[:email])
   if request.xhr?
     content_type :json
-    @delete_contact.to_json
+    @contact.to_json
   else
     redirect '/'
   end
