@@ -40,14 +40,14 @@
       <tr class="contact-row" data-id="{{contact.id}}">
         <td class="name" contenteditable="true">{{contact.name}}</td>
         <td class="email" contenteditable="true"><a href="mailto:{{contact.email}}">{{contact.email}}</a></td>
-        <form method="post" action="/api/delete_contact?contact={{contact.id}}" class="delete_contact">
-          <td>
-            <button class="edit btn btn-primary">Edit</button>
-          </td>
-          <td>
-            <input type="submit" class="btn btn-primary" value="Delete">
-          </td>
-        </form>
+        <td>
+          <button class="edit btn btn-primary">Edit</button>
+        </td>
+        <td>
+          <form method="post" action="/api/delete_contact?contact={{contact.id}}" class="delete_contact">
+            <input type="submit" class="delete btn btn-primary" value="Delete">
+          </form>
+        </td>
       </tr>
     </script>
   </table>

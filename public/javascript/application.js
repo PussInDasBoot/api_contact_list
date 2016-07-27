@@ -40,20 +40,9 @@ $(function () {
       url: form.attr('action'),
       data: form.serialize(),
       success: function (data) {
-        $('<tr class="contact-row">')
-          .append($('<td class="name">')
-            .text(data.name)
-          )
-          .append($('<td class="email">').data("email", data.email)
-            .append($('<a>').attr("href", "mailto:"+data.email)
-            .text(data.email))
-          )
-          .append($('<td>')
-            .append($('<button>').addClass('edit').addClass('btn btn-primary').text('Edit'))
-          )
-          .append($('<td>')
-            .append($('<input>').attr("type", "submit").attr("value", "Delete").addClass('btn btn-primary'))
-          ).appendTo(contactList);
+        var contactHTML = Templates.contact({contact: data});
+        contactList.append(contactHTML);
+        form.trigger("reset");
 
           // TODO maybe empty fields?
 
@@ -62,11 +51,10 @@ $(function () {
 
   });
 
-  $('.delete_contact').on('submit', function (event) {
+  $(document).on('click', '.delete', function (event) {
     event.preventDefault();
-
-    var form = $(this);
-
+    var form = $(this).closest('.delete_contact');
+    console.log(form);
     $.ajax({
       method: form.attr('method'),
       url: form.attr('action'),
