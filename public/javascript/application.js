@@ -54,10 +54,10 @@ $(function () {
     var contact = $(this).closest('.contact-row');
     var name = contact.find('.name');
     var nameText = name.text();
-    name.replaceWith('<input type="text" name="name" class="name" value="'+nameText+'">');
+    name.replaceWith('<td><input type="text" name="name" class="name" value="'+nameText+'"></td>');
     var email = contact.find('.email');
     var emailText = email.text();
-    email.replaceWith('<input type="text" name="name" class="email" value="'+emailText+'">');
+    email.replaceWith('<td><input type="text" name="name" class="email" value="'+emailText+'"></td>');
     var editButton = $('.edit').addClass('save').text('Save')
 
   });
