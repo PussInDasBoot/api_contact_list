@@ -58,17 +58,17 @@ $(function () {
     var email = contact.find('.email');
     var emailText = email.text();
     email.replaceWith('<td><input type="text" name="name" class="email" value="'+emailText+'"></td>');
-    var editButton = $('.edit').addClass('save').text('Save')
+    var editButton = contact.find('.edit').addClass('save').removeClass('edit').text('Save')
 
   });
 
-  // $('.edit.save').on('click', function(){
-  //   var contact = form.closest('.contact-row');
-  //   debugger;
-  //   var name = contact.find('.name');
-  //   var nameText = name.text();
-  //   name.replaceWith('<td>'+nameText+'</td>');
-  //       })
+  $('.save').on('click', function(){
+    var contact = form.closest('.contact-row');
+    debugger;
+    var name = contact.find('.name');
+    var nameText = name.text();
+    name.replaceWith('<td>'+nameText+'</td>');
+        })
 
 
 
