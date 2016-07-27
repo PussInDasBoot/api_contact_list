@@ -39,8 +39,8 @@
     <% @contacts.each do |contact| %>
     <tr class="contact-row">
       <td class="name"><%= contact.name %></td>
-      <td class="email"><a href="mailto:<%=contact.email%>"><%=contact.email%></a></td>
-      <form method="post" action="/delete_contact?contact=<%=contact.id%>" class="delete_contact">
+      <td class="email" data-email="<%=contact.email%>"><a href="mailto:<%=contact.email%>"><%=contact.email%></a></td>
+      <form method="post" action="/api/delete_contact?contact=<%=contact.id%>" class="delete_contact">
         <td>
           <button class="edit">Edit</button>
         </td>

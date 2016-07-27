@@ -11,11 +11,11 @@ $(function () {
       data: form.serialize(),
       success: function (data) {
         var contactList = $('.table').find($('tbody'));
-        $('<tr>')
-          .append($('<td>')
+        $('<tr class="contact-row">')
+          .append($('<td class="name">')
             .text(data.name)
           )
-          .append($('<td>')
+          .append($('<td class="email">').data("email", data.email)
             .append($('<a>').attr("href", "mailto:"+data.email)
             .text(data.email))
           )
@@ -27,8 +27,6 @@ $(function () {
           ).appendTo(contactList);
       }
     });
-
-
 
   });
 
@@ -49,39 +47,44 @@ $(function () {
 
   });
 
-  $('.edit').on('click', function (event) {
+  $(document).on('click', '.edit', function (event) {
     event.preventDefault();
     var contact = $(this).closest('.contact-row');
     var name = contact.find('.name');
+
     var nameText = name.text();
     name.replaceWith('<td><input type="text" name="name" class="name" value="'+nameText+'"></td>');
     var email = contact.find('.email');
     var emailText = email.text();
-    email.replaceWith('<td><input type="text" name="name" class="email" value="'+emailText+'"></td>');
+    email.replaceWith('<td><input type="text" name="name" class="email" data-email="'+emailText+'" value="'+emailText+'"></td>');
+    // TODO perhaps chain this HTML better
     var editButton = contact.find('.edit').addClass('save').removeClass('edit').text('Save')
 
   });
 
-  $('.save').on('click', function(){
-    var contact = form.closest('.contact-row');
-    debugger;
+  $(document).on('click', '.save', function(event){
+    event.preventDefault();
+    var contact = $(this).closest('.contact-row');
     var name = contact.find('.name');
-    var nameText = name.text();
+    var nameText = name.val();
+    var email = contact.find('.email');
+    var emailText = email.val();
+    var oldEmail = email.data("email");
     name.replaceWith('<td>'+nameText+'</td>');
-        })
-
-
-
-  var button = $('#load-more-posts');
-  button.on('click', function () {
     $.ajax({
-      url: 'more-posts.html',
-      method: 'GET',
-      success: function (morePostsHtml) {
-        button.replaceWith(morePostsHtml);
+      method: "POST",
+      url: '/api/edit_contact',
+      data: {name: nameText, email: emailText, oldemail: oldEmail},
+      success: function (data) {
+        name.replaceWith('<td>'+nameText+'</td>');
+        email.replaceWith('<td>'+emailText+'</td>')
+
+        //TODO replace these replaceWiths with the same functionality as the add-contact new items, chaining html
       }
     });
   });
+
+    
 
 
 

@@ -18,7 +18,7 @@ post '/add_contact' do
   end
 end
 
-post '/delete_contact' do
+post '/api/delete_contact' do
   @delete_contact = Contact.find params[:contact]
   @delete_contact.destroy
   if request.xhr?
@@ -29,6 +29,16 @@ post '/delete_contact' do
   end
 end
 
-get '/contact/edit' do
-  @contact = Contact.update
+post '/api/edit_contact' do
+  puts params
+  @contact = Contact.find_by(email: params[:oldemail])
+  @contact.update(
+    name: params[:name],
+    email: params[:email])
+  if request.xhr?
+    content_type :json
+    @delete_contact.to_json
+  else
+    redirect '/'
+  end
 end
