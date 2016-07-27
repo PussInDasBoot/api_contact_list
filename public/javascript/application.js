@@ -1,5 +1,35 @@
 $(function () {
 
+  var Templates = {}
+
+  function init(){
+    // Contains the template as a string
+  var contactTemplateHTML = $('#contact-template').html();
+  // The template function for producing HTML
+  Templates.contact = Handlebars.compile(contactTemplateHTML);
+  }
+
+  init();
+
+
+  var contactList = $('#contact-list').find('tbody');
+
+  function getContacts(){
+    $.ajax({
+      url: '/api/contacts',
+      method: 'GET',
+      success: function(data){
+        // console.log(data);
+        data.forEach(function(contact) {
+          var contactHTML = Templates.contact({contact: contact});
+          contactList.append(contactHTML)
+        });
+      }
+    });
+  }
+
+  getContacts();
+
   $('#new_contact').on('submit', function (event) {
     event.preventDefault();
 
@@ -10,7 +40,6 @@ $(function () {
       url: form.attr('action'),
       data: form.serialize(),
       success: function (data) {
-        var contactList = $('.table').find($('tbody'));
         $('<tr class="contact-row">')
           .append($('<td class="name">')
             .text(data.name)
@@ -25,6 +54,9 @@ $(function () {
           .append($('<td>')
             .append($('<input>').attr("type", "submit").attr("value", "Delete").addClass('btn btn-primary'))
           ).appendTo(contactList);
+
+          // TODO maybe empty fields?
+
       }
     });
 

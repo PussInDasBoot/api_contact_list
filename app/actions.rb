@@ -5,6 +5,12 @@ get '/' do
   erb :index
 end
 
+get '/api/contacts' do
+  @contacts = Contact.all
+  content_type :json
+  @contacts.to_json
+end
+
 post '/add_contact' do
   @contact = Contact.create(
     name: params[:name],

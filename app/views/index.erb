@@ -29,26 +29,26 @@
 
   <h1>All contacts</h1>
 
-  <table class="table text-center">
+  <table class="table text-center" id="contact-list">
     <tr>
       <th class="text-center">Name</th>
       <th class="text-center">Email</th>
       <th class="text-center">Edit</th>
       <th class="text-center">Delete</th>
     </tr>
-    <% @contacts.each do |contact| %>
-    <tr class="contact-row">
-      <td class="name"><%= contact.name %></td>
-      <td class="email" data-email="<%=contact.email%>"><a href="mailto:<%=contact.email%>"><%=contact.email%></a></td>
-      <form method="post" action="/api/delete_contact?contact=<%=contact.id%>" class="delete_contact">
-        <td>
-          <button class="edit btn btn-primary">Edit</button>
-        </td>
-        <td>
-          <input type="submit" class="btn btn-primary" value="Delete">
-        </td>
-      </form>
-    </tr>
-    <% end %>
+    <script id="contact-template" type="text/x-handlebars-template">
+      <tr class="contact-row" data-id="{{contact.id}}">
+        <td class="name" contenteditable="true">{{contact.name}}</td>
+        <td class="email" contenteditable="true"><a href="mailto:{{contact.email}}">{{contact.email}}</a></td>
+        <form method="post" action="/api/delete_contact?contact={{contact.id}}" class="delete_contact">
+          <td>
+            <button class="edit btn btn-primary">Edit</button>
+          </td>
+          <td>
+            <input type="submit" class="btn btn-primary" value="Delete">
+          </td>
+        </form>
+      </tr>
+    </script>
   </table>
 </div>
