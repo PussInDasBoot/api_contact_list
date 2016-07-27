@@ -48,10 +48,15 @@ post '/api/edit_contact' do
 end
 
 get '/api/search' do
-  @contacts = Contact.all
   if params[:search]
-    @contacts = Contact.where("name like :var1 OR email like :var1", var1: params[:search])
+    @contacts = Contact.where("name like :var1 OR email like :var1", var1: "%#{params[:search]}%")
+  elsif params[:search].blank?
+    @contacts = Contact.all
   end
-  content_type :json
-  @contacts.to_json
+  if request.xhr?
+    content_type :json
+    @contacts.to_json
+  else
+    redirect '/'
+  end
 end

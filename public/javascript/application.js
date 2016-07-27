@@ -16,7 +16,7 @@ $(function () {
 
   function getContacts(){
     $.ajax({
-      url: '/api/contacts',
+      url: '/api/search',
       method: 'GET',
       success: function(data){
         // console.log(data);
@@ -30,9 +30,26 @@ $(function () {
 
   getContacts();
 
+  $('#search').on('submit', function(event){
+    event.preventDefault();
+    var form = $(this)
+    $.ajax({
+      method: form.attr('method'),
+      url: form.attr('action'),
+      data: form.serialize(),
+      success: function (data) {
+        contactList.find("tr:gt(0)").remove();
+        data.forEach(function(contact) {
+          var contactHTML = Templates.contact({contact: contact});
+          contactList.append(contactHTML)
+        });
+        form.trigger("reset");
+      }
+    });
+  });
+
   $('#new_contact').on('submit', function (event) {
     event.preventDefault();
-
     var form = $(this);
 
     $.ajax({
@@ -43,9 +60,6 @@ $(function () {
         var contactHTML = Templates.contact({contact: data});
         contactList.append(contactHTML);
         form.trigger("reset");
-
-          // TODO maybe empty fields?
-
       }
     });
 
