@@ -13,16 +13,16 @@
 
   <h1>Add a new contact</h1>
 
-  <form method="post" action="/add_contact" id="new_contact">
-    <div>
+  <form method="post" action="/add_contact" id="new_contact" class="form-width">
+    <div class="form-group">
       <label>Name:</label>
-      <input type="text" name="name" value="<%= @contact.name %>">
+      <input type="text" name="name" value="<%= @contact.name %>" class="form-control">
     </div>
-    <div>
+    <div class="form-group">
       <label>Email:</label>
-      <input type="text" name="email" value="<%= @contact.email %>">
+      <input type="text" name="email" value="<%= @contact.email %>" class="form-control">
     </div>
-    <div>
+    <div class="form-group">
       <input type="submit" class="btn btn-primary" value="Submit">
     </div>
   </form>
@@ -42,7 +42,7 @@
       <td class="email" data-email="<%=contact.email%>"><a href="mailto:<%=contact.email%>"><%=contact.email%></a></td>
       <form method="post" action="/api/delete_contact?contact=<%=contact.id%>" class="delete_contact">
         <td>
-          <button class="edit">Edit</button>
+          <button class="edit btn btn-primary">Edit</button>
         </td>
         <td>
           <input type="submit" class="btn btn-primary" value="Delete">

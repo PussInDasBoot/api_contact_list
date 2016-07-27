@@ -20,7 +20,7 @@ $(function () {
             .text(data.email))
           )
           .append($('<td>')
-            .append($('<button>').addClass('edit').text('Edit'))
+            .append($('<button>').addClass('edit').addClass('btn btn-primary').text('Edit'))
           )
           .append($('<td>')
             .append($('<input>').attr("type", "submit").attr("value", "Delete").addClass('btn btn-primary'))
