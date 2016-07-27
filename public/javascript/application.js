@@ -32,7 +32,7 @@ $(function () {
 
   });
 
-  $('.delete_contact').on('submit', function(event) {
+  $('.delete_contact').on('submit', function (event) {
     event.preventDefault();
 
     var form = $(this);
