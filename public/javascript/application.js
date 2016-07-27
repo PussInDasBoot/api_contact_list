@@ -51,25 +51,14 @@ $(function () {
 
   $('.edit').on('click', function (event) {
     event.preventDefault();
-
-    var form = $(this);
-
-    $.ajax({
-      method: form.attr('method'),
-      url: form.attr('action'),
-      data: form.serialize(),
-      success: function (data) {
-        var contact = form.closest('.contact-row');
-        var name = contact.find('.name');
-        var nameText = name.text();
-        name.replaceWith('<input type="text" name="name" class="name" value="'+nameText+'">');
-        var email = contact.find('.email');
-        var emailText = email.text();
-        email.replaceWith('<input type="text" name="name" class="email" value="'+emailText+'">');
-        var editButton = $('.edit').addClass('save').text('Save')
-
-      }
-    });
+    var contact = $(this).closest('.contact-row');
+    var name = contact.find('.name');
+    var nameText = name.text();
+    name.replaceWith('<input type="text" name="name" class="name" value="'+nameText+'">');
+    var email = contact.find('.email');
+    var emailText = email.text();
+    email.replaceWith('<input type="text" name="name" class="email" value="'+emailText+'">');
+    var editButton = $('.edit').addClass('save').text('Save')
 
   });
 
