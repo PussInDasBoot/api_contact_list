@@ -49,7 +49,7 @@ end
 
 get '/api/search' do
   if params[:search]
-    @contacts = Contact.where("name like :var1 OR email like :var1", var1: "%#{params[:search]}%")
+    @contacts = Contact.search(params[:search])
   elsif params[:search].blank?
     @contacts = Contact.all
   end

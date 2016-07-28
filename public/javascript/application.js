@@ -19,7 +19,6 @@ $(function () {
       url: '/api/search',
       method: 'GET',
       success: function(data){
-        // console.log(data);
         data.forEach(function(contact) {
           var contactHTML = Templates.contact({contact: contact});
           contactList.append(contactHTML)
@@ -82,7 +81,13 @@ $(function () {
   });
 
   $(document).on('click', '.name, .email', function (event) {
+    event.stopPropagation();
     $(this).closest('.contact-row').find('.save').css('visibility', 'visible');
+  });
+
+  // so when you click away from the edit field, the visibility of the save button is hidden
+  $(document).on('click', function (event) {
+    $('.save').css('visibility', 'hidden');
   });
 
   $(document).on('click', '.save', function(event){
@@ -101,8 +106,6 @@ $(function () {
         var contactHTML = Templates.contact({contact: data});
         contact.replaceWith(contactHTML);
         contact.find('.save').css('visibility', 'hidden');
-
-        //TODO replace these replaceWiths with the same functionality as the add-contact new items, chaining html
       }
     });
   });
